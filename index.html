@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="RandomJoke API">
+    <title>Laugh Out Loud | Random Joke Portal</title>
+   
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
+
+        .joke-container {
+            background: white;
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 28px;
+        }
+
+        #joke_display {
+            font-size: 18px;
+            color: #555;
+            margin-top: 20px;
+        }
+
+        .joke-fetch-btn {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+        }
+
+        .joke-fetch-btn:hover {
+            background-color: #e55e00;
+        }
+    </style>
+   
+    <script>
+        async function fetchRandomJoke() {
+            try {
+                const response = await fetch("http://192.168.100.4:5000/joke");
+                if (!response.ok) {
+                    throw new Error("Failed to fetch joke");
+                }
+                const jokeData = await response.json();
+                document.getElementById("joke_display").innerText = jokeData.joke;
+            } catch (error) {
+                document.getElementById("joke_display").innerText = "Oops! Unable to fetch a joke. Try again.";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="joke-container">
+        <h1>🤣 Laugh Out Loud - Joke Generator</h1>
+        <p id="joke_display">Click the button below to hear a joke!</p>
+        <button class="joke-fetch-btn" onclick="fetchRandomJoke()">Tell Me A Joke!</button>
+    </div>
+
+</body>
+</html>
